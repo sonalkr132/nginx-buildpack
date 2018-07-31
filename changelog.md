@@ -1,3 +1,9 @@
+## v0.5
+
+2018-07-31
+
+added set-misc-nginx-module
+
 ## v0.4
 
 2012-05-13
