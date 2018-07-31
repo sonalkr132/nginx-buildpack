@@ -57,6 +57,14 @@ web: bin/start-nginx bundle exec unicorn -c config/unicorn.rb
 You can provide your own NGINX config by creating a file named `nginx.conf.erb` in the config direcotry of your app. Start by copying the buildpack's [default config file](https://github.com/ryandotsmith/nginx-buildpack/blob/master/config/nginx.conf.erb).
 
 ### Customizable NGINX Compile Options
+Fork this repo.
+Do a heroku run on any of your app.
+clone your forked repo in it . 
+change the scripts/build_nginx.sh as per requirement or for adding any other module.
+run the script.
+copy the nginx binary from /tmp/nginx/sbin to repo's bin/nginx
+commit & push the changes.
+now use your customized nginx build pack.
 
 See [scripts/build_nginx.sh](scripts/build_nginx.sh) for the build steps. Configuring is as easy as changing the "./configure" options.
 
