@@ -7,6 +7,13 @@ mkfifo $psmgr
 #Evaluate config to get $PORT
 erb config/nginx.conf.erb > config/nginx.conf
 
+_term() { 
+  echo "Caught SIGTERM signal!" 
+  kill -TERM "$child" 2>/dev/null
+}
+
+trap _term SIGTERM
+
 n=1
 while getopts :f option ${@:1:2}
 do
@@ -26,6 +33,7 @@ done
 	tail -qF -n 0 logs/nginx/*.log
 	echo 'logs' >$psmgr
 ) &
+
 
 #Start App Server
 (
@@ -59,6 +67,8 @@ fi
 	bin/nginx -p . -c config/nginx.conf
 	echo 'nginx' >$psmgr
 ) &
+child=$! 
+wait "$child"
 
 #This read will block the process waiting on a msg to be put into the fifo.
 #If any of the processes defined above should exit,
